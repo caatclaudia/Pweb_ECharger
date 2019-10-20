@@ -34,6 +34,26 @@ namespace ECharger
                 "~/admin-lte/js/adminlte.js",
                 "~/admin-lte/plugins/fastclick/fastclick.js"
             ));
+            
+            bundles.Add(new Bundle("~/crew/css").Include(
+                "~/crew/css/bootstrap.css",
+                "~/crew/css/animate.css",
+                "~/crew/css/icomoon.css",
+                "~/crew/css/simple-line-icons.css",
+                "~/crew/css/owl.carousel.min.css",
+                "~/crew/css/owl.theme.default.min.css",
+                "~/crew/css/lightblue.css"
+            ));
+            
+            bundles.Add(new ScriptBundle("~/crew/js").Include(
+                "~/crew/js/modernizr-2.6.2.min.js",
+                "~/crew/js/jquery.min.js",
+                "~/crew/js/jquery.easing.1.3.js",
+                "~/crew/js/bootsrap.min.js",
+                "~/crew/js/jquery.waypoints.min.js",
+                "~/crew/js/owl.carousel.min.js",
+                "~/crew/js/main.js"
+            ));
         }
     }
 }
