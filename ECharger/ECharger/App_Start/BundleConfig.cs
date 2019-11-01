@@ -21,6 +21,9 @@ namespace ECharger
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/maps").Include(
+                "~/Scripts/maps.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
@@ -42,7 +45,8 @@ namespace ECharger
                 "~/crew/css/simple-line-icons.css",
                 "~/crew/css/owl.carousel.min.css",
                 "~/crew/css/owl.theme.default.min.css",
-                "~/crew/css/lightblue.css"
+                "~/crew/css/lightblue.css",
+                "~/Content/Site.css"
             ));
             
             bundles.Add(new ScriptBundle("~/crew/js").Include(
