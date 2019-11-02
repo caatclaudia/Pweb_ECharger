@@ -1,10 +1,15 @@
 var map, service, infoWindow;
+var chargingStationsMarkers = [];
 
 function initAutocomplete() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 40.20564, lng: -8.4195},
         zoom: 16,
         mapTypeId: 'roadmap'
+    });
+
+    infowindow = new google.maps.InfoWindow({
+        content: " "
     });
     
     geolocate();
@@ -30,6 +35,7 @@ function initAutocomplete() {
         }
 
         // Clear out the old markers.
+        clearChargingStationsMarkers();
         markers.forEach(function(marker) {
             marker.setMap(null);
         });
@@ -55,9 +61,10 @@ function initAutocomplete() {
                 map: map,
                 icon: icon,
                 title: place.name,
-                position: place.geometry.location
+                position: place.geometry.location,
+                animation: google.maps.Animation.DROP
             }));
-
+            
             getChargingStations(place.geometry.location.lat(), place.geometry.location.lng());
             
             if (place.geometry.viewport) {
@@ -78,6 +85,7 @@ function geolocate() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
+            getChargingStations(position.coords.latitude, position.coords.longitude);
             map.setCenter(geolocation);
         });
     }
@@ -85,33 +93,68 @@ function geolocate() {
 
 function getChargingStations(lat, lng){
     var xmlhttp = new XMLHttpRequest();
+    var maxResults = 25;
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var chargingStationsJSON = JSON.parse(this.responseText);
+            
             var geolocation = {
                 lat: chargingStationsJSON[0].AddressInfo.Latitude,
                 lng: chargingStationsJSON[0].AddressInfo.Longitude
             };
             map.setCenter(geolocation);
             map.setZoom(16);
-            chargingStationsJSON.forEach(function(chargingStation) {
-                for (var i = 0; i < 100; i++){
-                    createMarker(chargingStation.AddressInfo.Latitude, chargingStation.AddressInfo.Longitude);
-                }
-            });
+            
+            for (var i = 0; i < maxResults; i++){
+                createCharginStationMarker(chargingStationsJSON[i], i * 200);
+            }
         }
     };
-    var url = "https://api.openchargemap.io/v3/poi/?output=json&countrycode=PT&maxresults=100";
-    url += "&latitude=" + lat + "&longitude=" + lng;
+    var url = "https://api.openchargemap.io/v3/poi/?output=json&countrycode=PT&maxresults=";
+    url += maxResults + "&latitude=" + lat + "&longitude=" + lng;
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
 
-function createMarker(lat, lng) {
-    var myLatLng = {lat: lat, lng: lng};
+function createCharginStationMarker(chargingStation, timeout) {
+    var addressInfo = chargingStation.AddressInfo;
     
-    var marker = new google.maps.Marker({
-        map: map,
-        position: myLatLng
-    });
+    var myLatLng = {
+        lat: addressInfo.Latitude,
+        lng: addressInfo.Longitude
+    };
+    
+    window.setTimeout(function() {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: myLatLng,
+            animation: google.maps.Animation.DROP,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            var content = '<p><b>Street Name: </b>'+addressInfo.Title+'</p>';
+            content += '<p><b>City: </b>'+addressInfo.Town+'</p>';
+            if (chargingStation.OperatorInfo != null){
+                content += '<p><b>Operator: </b>'+chargingStation.OperatorInfo.Title+'</p>';
+            }
+            content += '<a onclick="reserveChargingStation()" class="btn btn-primary">Reserve Now</a>';
+            infowindow.setContent(content);
+            
+            infowindow.open(map, this);
+        });
+        
+        chargingStationsMarkers.push(marker);
+    }, timeout);
+}
+
+function reserveChargingStation() {
+    
+}
+
+function clearChargingStationsMarkers() {
+    for (var i = 0; i < chargingStationsMarkers.length; i++) {
+        chargingStationsMarkers[i].setMap(null);
+    }
+    chargingStationsMarkers = [];
 }
