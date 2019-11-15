@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECharger", "ECharger\ECharger.csproj", "{D1641CDC-5786-4868-A73A-884F3980B227}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECharger", "ECharger\ECharger.csproj", "{4D1712BD-DD22-46CE-B87E-4854F23CE619}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D1641CDC-5786-4868-A73A-884F3980B227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1641CDC-5786-4868-A73A-884F3980B227}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1641CDC-5786-4868-A73A-884F3980B227}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1641CDC-5786-4868-A73A-884F3980B227}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D1712BD-DD22-46CE-B87E-4854F23CE619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D1712BD-DD22-46CE-B87E-4854F23CE619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D1712BD-DD22-46CE-B87E-4854F23CE619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D1712BD-DD22-46CE-B87E-4854F23CE619}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65358359-678B-4573-9681-EAFEB45ADFB2}
 	EndGlobalSection
 EndGlobal
