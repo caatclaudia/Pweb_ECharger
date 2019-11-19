@@ -193,6 +193,10 @@
     <Compile Include="Migrations\201911151237195_InitialCreate.Designer.cs">
       <DependentUpon>201911151237195_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911191253188_SeedUsers.cs" />
+    <Compile Include="Migrations\201911191253188_SeedUsers.Designer.cs">
+      <DependentUpon>201911191253188_SeedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data_Models\UserCard.cs" />
@@ -599,6 +603,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201911151237195_InitialCreate.resx">
       <DependentUpon>201911151237195_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911191253188_SeedUsers.resx">
+      <DependentUpon>201911191253188_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
