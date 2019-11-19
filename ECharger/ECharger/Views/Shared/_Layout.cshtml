@@ -163,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="~/Content/Images/adminlte/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="@Url.Action("Index", "Manage", routeValues: null)" class="d-block">Alexander Pierce</a>
+          <a href="@Url.Action("Index", "Manage", routeValues: null)" class="d-block">@User.Identity.Name</a>
         </div>
       </div>
 

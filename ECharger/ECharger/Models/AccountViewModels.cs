@@ -65,6 +65,11 @@ namespace ECharger.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Name")]
+        [StringLength(255, ErrorMessage = "Name needs to be under 255 characters long!")]
+        public string Name { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
