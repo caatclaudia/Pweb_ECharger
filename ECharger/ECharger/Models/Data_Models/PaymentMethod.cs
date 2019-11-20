@@ -8,18 +8,21 @@ namespace ECharger
 {
     class PaymentMethod
     {
-        public string name { get; set; }
-        private double Value;
+        public int ID { get; set; }
+        public string Name { get; set; }
+        private double value_;
+        public int UserID { get; set; }
+        public UserCard User { get; set; }
 
         public PaymentMethod(string n, double v)
         {
-            name = n;
+            Name = n;
             Value = v;
         }
 
-        public double Value_
+        public double Value
         {
-            get { return Value; }
+            get { return value_; }
             set
             {
                 if (value < 0)
@@ -28,13 +31,13 @@ namespace ECharger
                         value, $"{nameof(Value)} has to be >= 0");
                 }
 
-                Value = value;
+                value_ = value;
             }
         }
 
         public string toString()
         {
-            return $"Payment Method: {name} with the value {Value:F2} €\n";
+            return $"Payment Method: {Name} with the value {Value:F2} €\n";
         }
     }
 }
