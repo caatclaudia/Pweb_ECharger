@@ -20,6 +20,10 @@ namespace ECharger.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ChargingStation> ChargingStations { get; set; }
+        public DbSet<UserCard> UserCards { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

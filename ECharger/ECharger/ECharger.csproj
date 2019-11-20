@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201911191253188_SeedUsers.Designer.cs">
       <DependentUpon>201911191253188_SeedUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911201614486_DataModelsTables.cs" />
+    <Compile Include="Migrations\201911201614486_DataModelsTables.Designer.cs">
+      <DependentUpon>201911201614486_DataModelsTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -604,6 +608,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911191253188_SeedUsers.resx">
       <DependentUpon>201911191253188_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911201614486_DataModelsTables.resx">
+      <DependentUpon>201911201614486_DataModelsTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
