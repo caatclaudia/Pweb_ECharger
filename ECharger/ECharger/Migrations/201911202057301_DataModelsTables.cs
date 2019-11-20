@@ -23,7 +23,7 @@ namespace ECharger.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.AspNetUsers", t => t.CompanyID, cascadeDelete: true);
-            
+
             CreateTable(
                 "dbo.Reservations",
                 c => new
@@ -51,7 +51,7 @@ namespace ECharger.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.AspNetUsers", t => t.ID, cascadeDelete: true);
-            
+
             CreateTable(
                 "dbo.PaymentMethods",
                 c => new

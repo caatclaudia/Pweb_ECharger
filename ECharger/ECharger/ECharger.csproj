@@ -198,9 +198,9 @@
     <Compile Include="Migrations\201911191253188_SeedUsers.Designer.cs">
       <DependentUpon>201911191253188_SeedUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911202008240_DataModelsTables.cs" />
-    <Compile Include="Migrations\201911202008240_DataModelsTables.Designer.cs">
-      <DependentUpon>201911202008240_DataModelsTables.cs</DependentUpon>
+    <Compile Include="Migrations\201911202057301_DataModelsTables.cs" />
+    <Compile Include="Migrations\201911202057301_DataModelsTables.Designer.cs">
+      <DependentUpon>201911202057301_DataModelsTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -619,8 +619,8 @@
     <EmbeddedResource Include="Migrations\201911191253188_SeedUsers.resx">
       <DependentUpon>201911191253188_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911202008240_DataModelsTables.resx">
-      <DependentUpon>201911202008240_DataModelsTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911202057301_DataModelsTables.resx">
+      <DependentUpon>201911202057301_DataModelsTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
