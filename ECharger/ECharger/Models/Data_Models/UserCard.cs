@@ -8,64 +8,88 @@ namespace ECharger
 {
     class UserCard
     {
-        public int points { get; set; }
-        public List<PaymentMethod> paymentMethod { get; set; }
+        public int ID { get; set; }
+        public ICollection<Reservations> reservations { get; set; }
+        public ICollection<PaymentMethod> paymentMethod { get; set; }
 
-        public UserCard(PaymentMethod ob)
+        public UserCard()
         {
-            paymentMethod.Add(ob);
-            points = 0;
+            reservations = new List<Reservations>();
+            paymentMethod = new List<PaymentMethod>();
         }
 
-        public void addPoints(int num)
+        public bool existReservation(Reservations ob)
         {
-            points += num;
-            
-        }
-
-        public void removePoints(int num)
-        {
-            points -= num;
-
-        }
-
-        public bool existMethod(PaymentMethod ob)
-        {
-            foreach (PaymentMethod aux in paymentMethod)
+            foreach (Reservations aux in reservations)
             {
-                if (aux.name == ob.name)
+                if (aux.StartTime == ob.StartTime && aux.EndTime == ob.EndTime)
                     return true;
             }
 
             return false;
         }
 
-        public PaymentMethod searchMethod(string name)
+        public List<Reservations> searchReservationDate(DateTime date)
+        {
+            List<Reservations> reservationsD = new List<Reservations>();
+            foreach (Reservations aux in reservations)
+            {
+                if (aux.StartTime == date)
+                    reservationsD.Add(aux);
+            }
+            return reservationsD;
+        }
+
+        public void addReservation(Reservations ob)
+        {
+            if (existReservation(ob))
+                return;
+            reservations.Add(ob);
+        }
+
+        public void removeReservation(Reservations ob)
+        {
+            if(existReservation(ob))
+                reservations.Remove(ob);
+        }
+
+        public bool existPaymentMethod(PaymentMethod ob)
         {
             foreach (PaymentMethod aux in paymentMethod)
             {
-                if (aux.name == name)
+                if (aux.ID == ob.ID)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public PaymentMethod searchMethod(int ID)
+        {
+            foreach (PaymentMethod aux in paymentMethod)
+            {
+                if (aux.ID == ID)
                     return aux;
             }
             return null;
         }
-        
-        public void addMethod(PaymentMethod ob)
+
+        public void addPaymentMethod(PaymentMethod ob)
         {
-            if (existMethod(ob))
+            if (existPaymentMethod(ob))
                 return;
             paymentMethod.Add(ob);
         }
 
-        public void removeMetodo(PaymentMethod ob)
+        public void removePaymentMethod(PaymentMethod ob)
         {
-            if (existMethod(ob))
+            if (existPaymentMethod(ob))
                 paymentMethod.Remove(ob);
         }
 
         public string toString()
         {
-            return $"Points: {points}\n"; //FALTA METODOS PAGAMENTO
+            return $"User Card ID: {ID}\n";
         }
     }
 }
