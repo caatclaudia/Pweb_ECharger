@@ -23,6 +23,7 @@ namespace ECharger.Models
         public DbSet<ChargingStation> ChargingStations { get; set; }
         public DbSet<UserCard> UserCards { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
