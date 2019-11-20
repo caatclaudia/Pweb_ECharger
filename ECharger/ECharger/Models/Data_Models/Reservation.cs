@@ -16,6 +16,8 @@ namespace ECharger
         public ChargingStation ChargingStation { get; set; }
         public string UserCardID { get; set; }
         public UserCard UserCard { get; set; }
+        public int PaymentMethodID { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
 
         public DateTime EndTime {
             get { return endTime; }
