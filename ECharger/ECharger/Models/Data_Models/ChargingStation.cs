@@ -9,6 +9,7 @@ namespace ECharger
     public class ChargingStation
     {
         public int ID { get; set; }
+        public string Name { get; set; }
         public string StreetName { get; set; }
         public string City { get; set; }
         public string Operator { get; set; }
@@ -66,11 +67,6 @@ namespace ECharger
         {
             if (existReservation(ob))
                 reservations.Remove(ob);
-        }
-
-        public string toString()
-        {
-            return $"Station Name: {name}\n" + $"Type: {type}\n" + $"Price: {pricePerMinute:F2}\n"; //FALTA RESERVAS
         }
     }
 }
