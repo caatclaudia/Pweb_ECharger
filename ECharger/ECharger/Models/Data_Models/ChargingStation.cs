@@ -6,53 +6,38 @@ using System.Threading.Tasks;
 
 namespace ECharger
 {
-    class LoadingStations
+    class ChargingStation
     {
+        public int ID { get; set; }
         public string name { get; set; }
         public string type { get; set; }
-        public List<Reservations> reservations { get; set; }
-        //horario
-        private double price;
-        private long contact;
-        public bool available { get; set; }
-        //localizacao
+        public ICollection<Reservations> reservations { get; set; }
+        private double pricePerMinute;
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
-        public LoadingStations(string n, string t, double p, long c)
+        public ChargingStation(string n, string t, double p, double lat, double lon)
         {
             name = n;
             type = t;
-            price = p;
-            contact = c;
-            available = false;
+            pricePerMinute = p;
+            Latitude = lat;
+            Longitude = lon;
+            reservations = new List<Reservations>();
         }
 
-        public double Price
+        public double PricePerMinute
         {
-            get { return price; }
+            get { return pricePerMinute; }
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
-                        value, $"{nameof(price)} has to be >= 0");
+                        value, $"{nameof(pricePerMinute)} has to be >= 0");
                 }
 
-                price = value;
-            }
-        }
-
-        public long Contact
-        {
-            get { return contact; }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                        value, $"{nameof(contact)} has to be valid");
-                }
-
-                contact = value;
+                pricePerMinute = value;
             }
         }
 
@@ -60,7 +45,7 @@ namespace ECharger
         {
             foreach (Reservations aux in reservations)
             {
-                if (aux.date == nova.date)
+                if (aux.ID == nova.ID)
                     return true;
             }
 
@@ -72,7 +57,7 @@ namespace ECharger
             List<Reservations> reservationsD = new List<Reservations>();
             foreach (Reservations aux in reservations)
             {
-                if (aux.date == date)
+                if (aux.StartTime == date)
                     reservationsD.Add(aux);
             }
             return reservationsD;
@@ -85,7 +70,7 @@ namespace ECharger
             reservations.Add(ob);
         }
 
-        public void removeReserva(Reservations ob)
+        public void removeReservation(Reservations ob)
         {
             if (existReservation(ob))
                 reservations.Remove(ob);
@@ -93,7 +78,7 @@ namespace ECharger
 
         public string toString()
         {
-            return $"Station Name: {name}\n" + $"Type: {type}\n" + $"Price: {price:F2}\n" + $"Contact: {contact}\n"; //FALTA RESERVAS
+            return $"Station Name: {name}\n" + $"Type: {type}\n" + $"Price: {pricePerMinute:F2}\n"; //FALTA RESERVAS
         }
     }
 }
