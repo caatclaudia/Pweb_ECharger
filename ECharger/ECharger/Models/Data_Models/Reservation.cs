@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECharger
 {
-    public class Reservations
+    public class Reservation
     {
         public int ID { get; set; }
         public DateTime StartTime { get; set; }
@@ -17,7 +17,7 @@ namespace ECharger
         public int UserCardID { get; set; }
         public UserCard UserCard { get; set; }
 
-        public Reservations(DateTime startTime, DateTime endTime, ChargingStation chargingStation, UserCard userCard)
+        public Reservation(DateTime startTime, DateTime endTime, ChargingStation chargingStation, UserCard userCard)
         {
             ChargingStation = chargingStation;
             StartTime = startTime;

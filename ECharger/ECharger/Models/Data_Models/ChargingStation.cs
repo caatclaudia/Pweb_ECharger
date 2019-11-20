@@ -11,20 +11,20 @@ namespace ECharger
         public int ID { get; set; }
         public string name { get; set; }
         public string type { get; set; }
-        public ICollection<Reservations> reservations { get; set; }
+        public ICollection<Reservation> reservations { get; set; }
         private double pricePerMinute;
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public int CompanyID { get; set; }
+        public string CompanyID { get; set; }
 
-        public ChargingStation(string n, string t, double p, double lat, double lon, int companyID)
+        public ChargingStation(string n, string t, double p, double lat, double lon, string companyID)
         {
             name = n;
             type = t;
             pricePerMinute = p;
             Latitude = lat;
             Longitude = lon;
-            reservations = new List<Reservations>();
+            reservations = new List<Reservation>();
             CompanyID = companyID;
         }
 
@@ -43,9 +43,9 @@ namespace ECharger
             }
         }
 
-        public bool existReservation(Reservations nova)
+        public bool existReservation(Reservation nova)
         {
-            foreach (Reservations aux in reservations)
+            foreach (Reservation aux in reservations)
             {
                 if (aux.ID == nova.ID)
                     return true;
@@ -54,10 +54,10 @@ namespace ECharger
             return false;
         }
 
-        public List<Reservations> searchReservationDate(DateTime date)
+        public List<Reservation> searchReservationDate(DateTime date)
         {
-            List<Reservations> reservationsD = new List<Reservations>();
-            foreach (Reservations aux in reservations)
+            List<Reservation> reservationsD = new List<Reservation>();
+            foreach (Reservation aux in reservations)
             {
                 if (aux.StartTime == date)
                     reservationsD.Add(aux);
@@ -65,14 +65,14 @@ namespace ECharger
             return reservationsD;
         }
 
-        public void addReservation(Reservations ob)
+        public void addReservation(Reservation ob)
         {
             if (existReservation(ob))
                 return;
             reservations.Add(ob);
         }
 
-        public void removeReservation(Reservations ob)
+        public void removeReservation(Reservation ob)
         {
             if (existReservation(ob))
                 reservations.Remove(ob);

@@ -9,18 +9,18 @@ namespace ECharger
     public class UserCard
     {
         public int ID { get; set; }
-        public ICollection<Reservations> reservations { get; set; }
+        public ICollection<Reservation> reservations { get; set; }
         public ICollection<PaymentMethod> paymentMethod { get; set; }
 
         public UserCard()
         {
-            reservations = new List<Reservations>();
+            reservations = new List<Reservation>();
             paymentMethod = new List<PaymentMethod>();
         }
 
-        public bool existReservation(Reservations ob)
+        public bool existReservation(Reservation ob)
         {
-            foreach (Reservations aux in reservations)
+            foreach (Reservation aux in reservations)
             {
                 if (aux.StartTime == ob.StartTime && aux.EndTime == ob.EndTime)
                     return true;
@@ -29,10 +29,10 @@ namespace ECharger
             return false;
         }
 
-        public List<Reservations> searchReservationDate(DateTime date)
+        public List<Reservation> searchReservationDate(DateTime date)
         {
-            List<Reservations> reservationsD = new List<Reservations>();
-            foreach (Reservations aux in reservations)
+            List<Reservation> reservationsD = new List<Reservation>();
+            foreach (Reservation aux in reservations)
             {
                 if (aux.StartTime == date)
                     reservationsD.Add(aux);
@@ -40,14 +40,14 @@ namespace ECharger
             return reservationsD;
         }
 
-        public void addReservation(Reservations ob)
+        public void addReservation(Reservation ob)
         {
             if (existReservation(ob))
                 return;
             reservations.Add(ob);
         }
 
-        public void removeReservation(Reservations ob)
+        public void removeReservation(Reservation ob)
         {
             if(existReservation(ob))
                 reservations.Remove(ob);
