@@ -15,8 +15,9 @@ namespace ECharger
         private double pricePerMinute;
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public int CompanyID { get; set; }
 
-        public ChargingStation(string n, string t, double p, double lat, double lon)
+        public ChargingStation(string n, string t, double p, double lat, double lon, int companyID)
         {
             name = n;
             type = t;
@@ -24,6 +25,7 @@ namespace ECharger
             Latitude = lat;
             Longitude = lon;
             reservations = new List<Reservations>();
+            CompanyID = companyID;
         }
 
         public double PricePerMinute
