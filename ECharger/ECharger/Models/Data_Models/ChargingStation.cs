@@ -9,8 +9,9 @@ namespace ECharger
     public class ChargingStation
     {
         public int ID { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
+        public string StreetName { get; set; }
+        public string City { get; set; }
+        public string Operator { get; set; }
         public ICollection<Reservation> reservations { get; set; }
         private double pricePerMinute;
         public double Latitude { get; set; }
