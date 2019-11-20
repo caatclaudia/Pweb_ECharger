@@ -49,7 +49,7 @@ namespace ECharger.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,type,Latitude,Longitude,PricePerMinute")] ChargingStation chargingStation)
+        public ActionResult Create([Bind(Include = "ID,Name,StreetName,City,Operator,Latitude,Longitude,CompanyID,PricePerMinute")] ChargingStation chargingStation)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace ECharger.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,type,Latitude,Longitude,CompanyID,PricePerMinute")] ChargingStation chargingStation)
+        public ActionResult Edit([Bind(Include = "ID,Name,StreetName,City,Operator,Latitude,Longitude,CompanyID,PricePerMinute")] ChargingStation chargingStation)
         {
             if (ModelState.IsValid)
             {
