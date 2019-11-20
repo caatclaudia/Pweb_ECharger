@@ -11,8 +11,8 @@ namespace ECharger
         public int ID { get; set; }
         public string Name { get; set; }
         private double value_;
-        public int UserID { get; set; }
-        public UserCard User { get; set; }
+        public string UserCardID { get; set; }
+        public UserCard UserCard { get; set; }
 
         public double Value
         {

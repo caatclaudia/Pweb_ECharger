@@ -14,7 +14,7 @@ namespace ECharger
         public double TotalPrice { get; private set; }
         public int ChargingStationID { get; set; }
         public ChargingStation ChargingStation { get; set; }
-        public int UserCardID { get; set; }
+        public string UserCardID { get; set; }
         public UserCard UserCard { get; set; }
 
         public DateTime EndTime {
