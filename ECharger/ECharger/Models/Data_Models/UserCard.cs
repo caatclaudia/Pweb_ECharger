@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECharger
 {
-    class UserCard
+    public class UserCard
     {
         public int ID { get; set; }
         public ICollection<Reservations> reservations { get; set; }

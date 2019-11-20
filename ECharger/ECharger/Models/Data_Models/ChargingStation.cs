@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECharger
 {
-    class ChargingStation
+    public class ChargingStation
     {
         public int ID { get; set; }
         public string name { get; set; }

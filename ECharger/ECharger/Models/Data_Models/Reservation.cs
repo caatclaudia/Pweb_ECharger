@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECharger
 {
-    class Reservations
+    public class Reservations
     {
         public int ID { get; set; }
         public DateTime StartTime { get; set; }
