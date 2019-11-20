@@ -13,7 +13,7 @@ namespace ECharger.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201911201614486_DataModelsTables"; }
+            get { return "201911202008240_DataModelsTables"; }
         }
         
         string IMigrationMetadata.Source
