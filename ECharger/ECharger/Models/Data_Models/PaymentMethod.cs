@@ -14,12 +14,6 @@ namespace ECharger
         public int UserID { get; set; }
         public UserCard User { get; set; }
 
-        public PaymentMethod(string n, double v)
-        {
-            Name = n;
-            Value = v;
-        }
-
         public double Value
         {
             get { return value_; }

@@ -17,14 +17,6 @@ namespace ECharger
         public int UserCardID { get; set; }
         public UserCard UserCard { get; set; }
 
-        public Reservation(DateTime startTime, DateTime endTime, ChargingStation chargingStation, UserCard userCard)
-        {
-            ChargingStation = chargingStation;
-            StartTime = startTime;
-            EndTime = endTime;
-            UserCard = userCard;
-        }
-
         public DateTime EndTime {
             get { return endTime; }
             set

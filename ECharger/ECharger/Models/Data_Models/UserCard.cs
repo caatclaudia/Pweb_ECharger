@@ -12,12 +12,6 @@ namespace ECharger
         public ICollection<Reservation> reservations { get; set; }
         public ICollection<PaymentMethod> paymentMethod { get; set; }
 
-        public UserCard()
-        {
-            reservations = new List<Reservation>();
-            paymentMethod = new List<PaymentMethod>();
-        }
-
         public bool existReservation(Reservation ob)
         {
             foreach (Reservation aux in reservations)
