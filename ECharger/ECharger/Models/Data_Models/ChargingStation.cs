@@ -17,17 +17,6 @@ namespace ECharger
         public double Longitude { get; set; }
         public string CompanyID { get; set; }
 
-        public ChargingStation(string n, string t, double p, double lat, double lon, string companyID)
-        {
-            name = n;
-            type = t;
-            pricePerMinute = p;
-            Latitude = lat;
-            Longitude = lon;
-            reservations = new List<Reservation>();
-            CompanyID = companyID;
-        }
-
         public double PricePerMinute
         {
             get { return pricePerMinute; }
