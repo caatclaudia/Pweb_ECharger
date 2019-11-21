@@ -53,8 +53,11 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,StartTime,TotalPrice,ChargingStationID,UserCardID,PaymentMethodID,EndTime")] Reservation reservation)
         {
+            reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
+                reservation.updateTotalPrice();
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -91,8 +94,11 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,StartTime,TotalPrice,ChargingStationID,UserCardID,PaymentMethodID,EndTime")] Reservation reservation)
         {
+            reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
+                reservation.updateTotalPrice();
                 db.Entry(reservation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

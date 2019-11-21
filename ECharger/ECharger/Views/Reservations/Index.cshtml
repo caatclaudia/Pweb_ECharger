@@ -25,40 +25,40 @@
             @Html.DisplayNameFor(model => model.StartTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TotalPrice)
+            @Html.DisplayNameFor(model => model.EndTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndTime)
+            @Html.DisplayNameFor(model => model.TotalPrice)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChargingStation.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PaymentMethod.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserCard.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ChargingStation.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaymentMethod.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserCard.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalPrice)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+    </td>
+</tr>
 }
 
 </table>

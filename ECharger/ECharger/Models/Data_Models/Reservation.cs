@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ECharger.Models.Data_Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +11,16 @@ namespace ECharger
     public class Reservation
     {
         public int ID { get; set; }
+        [Display(Name = "Start Time")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime StartTime { get; set; }
-        private DateTime endTime { get; set; }
-        public double TotalPrice { get; private set; }
+        [Display(Name = "End Time")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [ReservationDataCheck]
+        public DateTime EndTime { get; set; }
+        public double TotalPrice { get; set; }
         public int ChargingStationID { get; set; }
         public ChargingStation ChargingStation { get; set; }
         public string UserCardID { get; set; }
@@ -19,20 +28,12 @@ namespace ECharger
         public int PaymentMethodID { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
 
-        public DateTime EndTime {
-            get { return endTime; }
-            set
+        public void updateTotalPrice()
+        {
+            if (ChargingStation != null)
             {
                 TimeSpan timeSpan = EndTime - StartTime;
-                int totalMinutes = (int) timeSpan.TotalMinutes;
-
-                if (totalMinutes < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                        value, $"{nameof(EndTime)} has to be bigger than {nameof(StartTime)}");
-                }
-
-                endTime = value;
+                int totalMinutes = (int)timeSpan.TotalMinutes;
 
                 TotalPrice = ChargingStation.PricePerMinute * totalMinutes;
             }
