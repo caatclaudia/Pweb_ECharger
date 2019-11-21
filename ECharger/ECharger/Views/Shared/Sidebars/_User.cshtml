@@ -1,0 +1,8 @@
+﻿@using ECharger.Extensions
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Contact", controllers: "Home")" href="@Url.Action("Contact", "Home")">
+        <i class="nav-icon fas fa-th"></i>
+        <p>Contact</p>
+    </a>
+</li>

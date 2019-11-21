@@ -615,6 +615,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\LandingPage\Index.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_Admin.cshtml" />
     <Content Include="Views\ChargingStations\Create.cshtml" />
     <Content Include="Views\ChargingStations\Delete.cshtml" />
     <Content Include="Views\ChargingStations\Details.cshtml" />
@@ -630,6 +631,8 @@
     <Content Include="Views\PaymentMethods\Details.cshtml" />
     <Content Include="Views\PaymentMethods\Edit.cshtml" />
     <Content Include="Views\PaymentMethods\Index.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_Company.cshtml" />
+    <Content Include="Views\Shared\Sidebars\_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
