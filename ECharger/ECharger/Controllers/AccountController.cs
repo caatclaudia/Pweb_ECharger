@@ -23,7 +23,7 @@ namespace ECharger.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -35,9 +35,9 @@ namespace ECharger.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -130,7 +130,7 @@ namespace ECharger.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -149,6 +149,9 @@ namespace ECharger.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var roles = db.Roles.Where(m => m.Name == RoleName.User || m.Name == RoleName.Company);
+            ViewBag.RoleName = new SelectList(roles, "Name", "Name");
             return View();
         }
 
@@ -159,14 +162,29 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    if (model.RoleName != RoleName.Admin)
+                    {
+                        UserManager.AddToRole(user.Id, model.RoleName);
+                    }
                     
+                    if (model.RoleName == RoleName.User)
+                    {
+                        UserCard userCard = new UserCard { ID = user.Id, Email = model.Email };
+                        db.UserCards.Add(userCard);
+                        db.SaveChanges();
+                    }
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -177,7 +195,8 @@ namespace ECharger.Controllers
                 }
                 AddErrors(result);
             }
-
+            var roles = db.Roles.Where(m => m.Name == RoleName.User || m.Name == RoleName.Company);
+            ViewBag.RoleName = new SelectList(roles, "Name", "Name");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

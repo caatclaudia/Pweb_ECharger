@@ -72,6 +72,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                         </div>
                     </div>
+                    <div class="input-group mb-3">
+                        @Html.LabelFor(m => m.RoleName, new { @class = "form-control col-md-3" })
+                        @Html.DropDownList("RoleName", null, new { placeholder = "Select Register Role", @class = "form-control" })
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user-tag"></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
