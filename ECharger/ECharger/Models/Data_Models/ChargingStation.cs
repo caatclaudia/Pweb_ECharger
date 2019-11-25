@@ -3,36 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECharger
 {
     public class ChargingStation
     {
+        [Required]
         public int ID { get; set; }
+        
+        [Required]
+        [StringLength(255, ErrorMessage = "Name needs to be under 255 characters long!")]
         public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Street Name")]
+        [StringLength(255, ErrorMessage = "Street Name needs to be under 255 characters long!")]
         public string StreetName { get; set; }
+
+        [Required]
+        [StringLength(255, ErrorMessage = "City needs to be under 255 characters long!")]
         public string City { get; set; }
         public string Operator { get; set; }
         public ICollection<Reservation> reservations { get; set; }
-        private double pricePerMinute;
+
+        [Required]
+        [Display(Name = "Price per minute")]
+        [Range(0,1)]
+        public double PricePerMinute { get; set; }
+
+        [Required]
         public double Latitude { get; set; }
+
+        [Required]
         public double Longitude { get; set; }
+
+        [Required]
         public string CompanyID { get; set; }
 
-        public double PricePerMinute
-        {
-            get { return pricePerMinute; }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value),
-                        value, $"{nameof(pricePerMinute)} has to be >= 0");
-                }
-
-                pricePerMinute = value;
-            }
-        }
+       
 
         public bool existReservation(Reservation nova)
         {

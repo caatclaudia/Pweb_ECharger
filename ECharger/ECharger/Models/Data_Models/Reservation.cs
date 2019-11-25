@@ -10,22 +10,39 @@ namespace ECharger
 {
     public class Reservation
     {
+        [Required]
         public int ID { get; set; }
+
+        [Required]
         [Display(Name = "Start Time")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime StartTime { get; set; }
+
         [Display(Name = "End Time")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [ReservationDataCheck]
         public DateTime EndTime { get; set; }
+
+        [Display(Name = "Total Price")]
+        [Range(0, 1000)]
         public double TotalPrice { get; set; }
+
+        [Required]
         public int ChargingStationID { get; set; }
+        
         public ChargingStation ChargingStation { get; set; }
+
+        [Required]
+        [StringLength(255)]
         public string UserCardID { get; set; }
+        
         public UserCard UserCard { get; set; }
+
+        [Required]
         public int PaymentMethodID { get; set; }
+        
         public PaymentMethod PaymentMethod { get; set; }
 
         public void updateTotalPrice()

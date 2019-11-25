@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECharger
 {
     public class UserCard
     {
+        [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(255)]
         public string ID { get; set; }
+
         public ICollection<Reservation> reservations { get; set; }
+        
         public ICollection<PaymentMethod> paymentMethod { get; set; }
 
         public bool existReservation(Reservation ob)
