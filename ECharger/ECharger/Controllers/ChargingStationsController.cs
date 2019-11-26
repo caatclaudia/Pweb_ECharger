@@ -38,9 +38,22 @@ namespace ECharger.Controllers
             return View(chargingStation);
         }
 
+        public void setupCompanyIdViewBag()
+        {
+            var roles = db.Roles.Where(r => r.Name == RoleName.Company);
+            if (roles.Any())
+            {
+                var roleId = roles.First().Id;
+                var companyIds = db.Users.Where(u => u.Roles.Any(r => r.RoleId == roleId));
+                var company = companyIds.First();
+                ViewBag.CompanyID = new SelectList(companyIds, "ID", "Email");
+            }
+        }
+
         // GET: ChargingStations/Create
         public ActionResult Create()
         {
+            setupCompanyIdViewBag();
             return View();
         }
 
@@ -51,14 +64,19 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,StreetName,City,Operator,Latitude,Longitude,CompanyID,PricePerMinute")] ChargingStation chargingStation)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole(RoleName.Company))
             {
                 chargingStation.CompanyID = User.Identity.GetUserId();
+            }
+
+            if (ModelState.IsValid)
+            {
                 db.ChargingStations.Add(chargingStation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            setupCompanyIdViewBag();
             return View(chargingStation);
         }
 
@@ -74,6 +92,7 @@ namespace ECharger.Controllers
             {
                 return HttpNotFound();
             }
+            setupCompanyIdViewBag();
             return View(chargingStation);
         }
 
@@ -90,6 +109,7 @@ namespace ECharger.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            setupCompanyIdViewBag();
             return View(chargingStation);
         }
 
