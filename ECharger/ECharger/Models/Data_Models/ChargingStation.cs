@@ -9,7 +9,6 @@ namespace ECharger
 {
     public class ChargingStation
     {
-        [Required]
         public int ID { get; set; }
         
         [Required]

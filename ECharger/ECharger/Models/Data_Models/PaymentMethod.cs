@@ -9,7 +9,6 @@ namespace ECharger
 {
     public class PaymentMethod
     {
-        [Required]
         public int ID { get; set; }
 
         [Required]
@@ -20,10 +19,10 @@ namespace ECharger
         [Range(0, 100)]
         public double Value { get; set; }
 
-        [StringLength(255)]
+        [Required]
+        [StringLength(128)]
         public string UserCardID { get; set; }
 
-        [Required]
         public UserCard UserCard { get; set; }
 
 

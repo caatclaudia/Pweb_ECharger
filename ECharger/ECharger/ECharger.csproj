@@ -208,6 +208,10 @@
     <Compile Include="Migrations\201911202333130_SeedUserData.Designer.cs">
       <DependentUpon>201911202333130_SeedUserData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911261300048_Validations.cs" />
+    <Compile Include="Migrations\201911261300048_Validations.Designer.cs">
+      <DependentUpon>201911261300048_Validations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Data_Models\ReservationDataCheck.cs" />
@@ -664,6 +668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911202333130_SeedUserData.resx">
       <DependentUpon>201911202333130_SeedUserData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911261300048_Validations.resx">
+      <DependentUpon>201911261300048_Validations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

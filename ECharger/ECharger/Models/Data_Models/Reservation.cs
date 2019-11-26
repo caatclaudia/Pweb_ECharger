@@ -10,7 +10,6 @@ namespace ECharger
 {
     public class Reservation
     {
-        [Required]
         public int ID { get; set; }
 
         [Required]
@@ -19,6 +18,7 @@ namespace ECharger
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime StartTime { get; set; }
 
+        [Required]
         [Display(Name = "End Time")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
@@ -35,7 +35,7 @@ namespace ECharger
         public ChargingStation ChargingStation { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(128)]
         public string UserCardID { get; set; }
         
         public UserCard UserCard { get; set; }

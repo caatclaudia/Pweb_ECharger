@@ -12,8 +12,7 @@ namespace ECharger
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(255)]
+        [StringLength(128)]
         public string ID { get; set; }
 
         public ICollection<Reservation> reservations { get; set; }
