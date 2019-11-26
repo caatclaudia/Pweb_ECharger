@@ -12,6 +12,7 @@ namespace ECharger
         public int ID { get; set; }
 
         [Required]
+        [Display(Name = "Payment Method Name")]
         [StringLength(255, ErrorMessage = "Name needs to be under 255 characters long!")]
         public string Name { get; set; }
 

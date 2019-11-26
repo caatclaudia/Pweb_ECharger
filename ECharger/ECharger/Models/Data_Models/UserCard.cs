@@ -10,6 +10,7 @@ namespace ECharger
     public class UserCard
     {
         [EmailAddress]
+        [Display(Name = "User Email")]
         public string Email { get; set; }
 
         [StringLength(128)]
