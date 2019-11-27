@@ -1,8 +1,49 @@
 ﻿@using ECharger.Extensions
 
 <li class="nav-item">
-    <a class="nav-link @Html.IsSelected(actions: "Contact", controllers: "Home")" href="@Url.Action("Contact", "Home")">
+    <a class="nav-link @Html.IsSelected(actions: "Index", controllers: "Home")" href="@Url.Action("Index", "Home")">
         <i class="nav-icon fas fa-th"></i>
-        <p>Contact</p>
+        <p>Home</p>
+    </a>
+</li>
+
+<li class="nav-header">Charging Stations</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Index", controllers: "ChargingStations")" href="@Url.Action("Index", "ChargingStations")">
+        <i class="nav-icon fas fa-charging-station"></i>
+        <p>List Charging Station</p>
+    </a>
+</li>
+
+<li class="nav-header">Reservations</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Index", controllers: "Reservations")" href="@Url.Action("Index", "Reservations")">
+        <i class="nav-icon fas fa-receipt"></i>
+        <p>List Reservations</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Create", controllers: "Reservations")" href="@Url.Action("Create", "Reservations")">
+        <i class="nav-icon fas fa-plus"></i>
+        <p>Add Reservation</p>
+    </a>
+</li>
+
+<li class="nav-header">Payment Methods</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Index", controllers: "PaymentMethods")" href="@Url.Action("Index", "PaymentMethods")">
+        <i class="nav-icon fas fa-credit-card"></i>
+        <p>List Payment Methods</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Create", controllers: "PaymentMethods")" href="@Url.Action("Create", "PaymentMethods")">
+        <i class="nav-icon fas fa-plus"></i>
+        <p>Add Payment Method</p>
     </a>
 </li>
