@@ -656,6 +656,11 @@
     <Content Include="Views\PaymentMethods\Index.cshtml" />
     <Content Include="Views\Shared\Sidebars\_Company.cshtml" />
     <Content Include="Views\Shared\Sidebars\_User.cshtml" />
+    <Content Include="Views\PaymentMethods\UserCreate.cshtml" />
+    <Content Include="Views\PaymentMethods\UserDelete.cshtml" />
+    <Content Include="Views\PaymentMethods\UserDetails.cshtml" />
+    <Content Include="Views\PaymentMethods\UserEdit.cshtml" />
+    <Content Include="Views\PaymentMethods\UserIndex.cshtml" />
     <Content Include="Views\Reservations\UserIndex.cshtml" />
     <Content Include="Views\Reservations\UserEdit.cshtml" />
     <Content Include="Views\Reservations\UserDetails.cshtml" />

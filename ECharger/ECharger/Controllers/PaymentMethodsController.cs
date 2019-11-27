@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ECharger;
 using ECharger.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ECharger.Controllers
 {
@@ -18,7 +19,13 @@ namespace ECharger.Controllers
         // GET: PaymentMethods
         public ActionResult Index()
         {
-            var paymentMethods = db.PaymentMethods.Include(p => p.UserCard);
+            if (User.IsInRole(RoleName.User))
+            {
+                var userID = User.Identity.GetUserId();
+                var userPaymentMethods = db.PaymentMethods.Where(m => m.UserCardID == userID);
+                return View("UserIndex", userPaymentMethods);
+            }
+                var paymentMethods = db.PaymentMethods.Include(p => p.UserCard);
             return View(paymentMethods.ToList());
         }
 
@@ -29,7 +36,7 @@ namespace ECharger.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PaymentMethod paymentMethod = db.PaymentMethods.Include(p => p.UserCard).Where(p => p.ID == id).SingleOrDefault();
+            PaymentMethod paymentMethod = db.PaymentMethods.Find(id);
             if (paymentMethod == null)
             {
                 return HttpNotFound();
@@ -40,6 +47,17 @@ namespace ECharger.Controllers
         // GET: PaymentMethods/Create
         public ActionResult Create()
         {
+            if (User.IsInRole(RoleName.User))
+            {
+                var userID = User.Identity.GetUserId();
+                var userPaymentMethods = db.PaymentMethods.Where(m => m.UserCardID == userID);
+                ViewBag.PaymentMethodID = new SelectList(userPaymentMethods, "ID", "Name");
+
+                var paymentMethod = new PaymentMethod { UserCardID = userID };
+
+                return View("UserCreate", paymentMethod);
+            }
+            
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email");
             return View();
         }
@@ -56,6 +74,12 @@ namespace ECharger.Controllers
                 db.PaymentMethods.Add(paymentMethod);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+
+            if (User.IsInRole(RoleName.User))
+            {
+                paymentMethod.UserCardID = User.Identity.GetUserId();
+                return View("UserCreate", paymentMethod);
             }
 
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", paymentMethod.UserCardID);
@@ -85,12 +109,24 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,UserCardID,Value")] PaymentMethod paymentMethod)
         {
+            if (User.IsInRole(RoleName.User))
+            {
+                paymentMethod.UserCardID = User.Identity.GetUserId();
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(paymentMethod).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            if (User.IsInRole(RoleName.User))
+            {
+                paymentMethod.UserCardID = User.Identity.GetUserId();
+                return View("UserEdit", paymentMethod);
+            }
+
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", paymentMethod.UserCardID);
             return View(paymentMethod);
         }
@@ -98,6 +134,7 @@ namespace ECharger.Controllers
         // GET: PaymentMethods/Delete/5
         public ActionResult Delete(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -107,6 +144,11 @@ namespace ECharger.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole(RoleName.User))
+            {
+                return View("UserDelete", paymentMethod);
+            }
+
             return View(paymentMethod);
         }
 
