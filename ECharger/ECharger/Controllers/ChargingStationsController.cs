@@ -19,7 +19,11 @@ namespace ECharger.Controllers
         // GET: ChargingStations
         public ActionResult Index()
         {
-            //TODO: Check the role, if its a company only show stations that match its id
+            if (User.IsInRole(RoleName.Company))
+            {
+                var companyID = User.Identity.GetUserId();
+                return View(db.ChargingStations.Where(c => c.CompanyID == companyID));
+            }
             return View(db.ChargingStations.ToList());
         }
 
