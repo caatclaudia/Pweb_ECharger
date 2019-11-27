@@ -668,6 +668,8 @@
     <Content Include="Views\Reservations\UserDetails.cshtml" />
     <Content Include="Views\Reservations\UserDelete.cshtml" />
     <Content Include="Views\Reservations\UserCreate.cshtml" />
+    <Content Include="Views\Reservations\CompanyIndex.cshtml" />
+    <Content Include="Views\Reservations\CompanyDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

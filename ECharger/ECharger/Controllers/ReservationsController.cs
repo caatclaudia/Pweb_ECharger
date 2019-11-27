@@ -42,6 +42,11 @@ namespace ECharger.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole(RoleName.Company))
+            {
+                return View("CompanyDetails", reservation);
+            }
+
             return View(reservation);
         }
 
