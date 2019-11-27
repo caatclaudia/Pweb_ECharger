@@ -25,7 +25,7 @@ namespace ECharger.Controllers
                 var userPaymentMethods = db.PaymentMethods.Where(m => m.UserCardID == userID);
                 return View("UserIndex", userPaymentMethods);
             }
-                var paymentMethods = db.PaymentMethods.Include(p => p.UserCard);
+            var paymentMethods = db.PaymentMethods.Include(p => p.UserCard);
             return View(paymentMethods.ToList());
         }
 
@@ -36,7 +36,7 @@ namespace ECharger.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PaymentMethod paymentMethod = db.PaymentMethods.Find(id);
+            PaymentMethod paymentMethod = db.PaymentMethods.Include(p => p.UserCard).Where(m => m.ID == id).SingleOrDefault();
             if (paymentMethod == null)
             {
                 return HttpNotFound();
@@ -139,7 +139,7 @@ namespace ECharger.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PaymentMethod paymentMethod = db.PaymentMethods.Find(id);
+            PaymentMethod paymentMethod = db.PaymentMethods.Include(p => p.UserCard).Where(m => m.ID == id).SingleOrDefault();
             if (paymentMethod == null)
             {
                 return HttpNotFound();

@@ -165,7 +165,7 @@ namespace ECharger.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservations.Find(id);
+            Reservation reservation = db.Reservations.Include(r => r.ChargingStation).Include(r => r.PaymentMethod).Include(r => r.UserCard).Where(u => u.ID == id).SingleOrDefault();
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -174,7 +174,6 @@ namespace ECharger.Controllers
             {
                return View("UserDelete", reservation);
             }
-
             return View(reservation);
         }
 
