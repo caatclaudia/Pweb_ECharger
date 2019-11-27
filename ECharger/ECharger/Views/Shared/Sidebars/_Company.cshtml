@@ -1,8 +1,33 @@
 ﻿@using ECharger.Extensions
 
 <li class="nav-item">
-    <a class="nav-link @Html.IsSelected(actions: "About", controllers: "Home")" href="@Url.Action("About", "Home")">
+    <a class="nav-link @Html.IsSelected(actions: "Index", controllers: "Home")" href="@Url.Action("Index", "Home")">
         <i class="nav-icon fas fa-th"></i>
-        <p>About</p>
+        <p>Home</p>
+    </a>
+</li>
+
+<li class="nav-header">Charging Stations</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Index", controllers: "ChargingStations")" href="@Url.Action("Index", "ChargingStations")">
+        <i class="nav-icon fas fa-charging-station"></i>
+        <p>List Charging Station</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Create", controllers: "ChargingStations")" href="@Url.Action("Create", "ChargingStations")">
+        <i class="nav-icon fas fa-plus"></i>
+        <p>Add Charging Station</p>
+    </a>
+</li>
+
+<li class="nav-header">Reservations</li>
+
+<li class="nav-item">
+    <a class="nav-link @Html.IsSelected(actions: "Index", controllers: "Reservations")" href="@Url.Action("Index", "Reservations")">
+        <i class="nav-icon fas fa-receipt"></i>
+        <p>List Reservations</p>
     </a>
 </li>
