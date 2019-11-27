@@ -131,7 +131,7 @@ function createCharginStationMarker(chargingStation, timeout) {
             var content = '<p><b>Street Name: </b>' + chargingStation.streetName + '</p>';
             content += '<p><b>City: </b>' + chargingStation.city + '</p>';
             content += '<p><b>Operator: </b>' + chargingStation.operator + '</p>';
-            content += '<a onclick="reserveChargingStation()" class="btn btn-primary">Reserve Now</a>';
+            content += '<a onclick="reserveChargingStation(' + chargingStation.id + ')" class="btn btn-primary js-reservation" > Reserve Now</a> ';
             infowindow.setContent(content);
 
             infowindow.open(map, this);
@@ -141,8 +141,8 @@ function createCharginStationMarker(chargingStation, timeout) {
     }, timeout);
 }
 
-function reserveChargingStation() {
-
+function reserveChargingStation(chargingStationID) {
+    window.location.href = '/Reservations/MapCreate/' + chargingStationID;
 }
 
 function clearChargingStationsMarkers() {

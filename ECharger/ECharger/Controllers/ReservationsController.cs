@@ -60,6 +60,65 @@ namespace ECharger.Controllers
             return View(reservation);
         }
 
+        // GET: Reservations/MapCreate/ChargingStationID
+        public ActionResult MapCreate(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ChargingStation chargingStation = db.ChargingStations.Find(id);
+            if (chargingStation == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (User.IsInRole(RoleName.User))
+            {
+                var userID = User.Identity.GetUserId();
+                var userPaymentMethods = db.PaymentMethods.Where(m => m.UserCardID == userID);
+                ViewBag.PaymentMethodID = new SelectList(userPaymentMethods, "ID", "Name");
+
+                var userReservation = new Reservation { UserCardID = userID, ChargingStationID = id };
+
+                return View("MapUserCreate", userReservation);
+            }
+
+            ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name");
+            ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email");
+            var reservation = new Reservation { ChargingStationID = id };
+            return View("MapAdminCreate", reservation);
+        }
+
+        // POST: Reservations/MapCreate
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MapCreate([Bind(Include = "ID,StartTime,TotalPrice,ChargingStationID,UserCardID,PaymentMethodID,EndTime")] Reservation reservation)
+        {
+            reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).SingleOrDefault();
+
+            if (ModelState.IsValid)
+            {
+                reservation.updateTotalPrice();
+                db.Reservations.Add(reservation);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            
+            ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name", reservation.PaymentMethodID);
+
+            if (User.IsInRole(RoleName.User))
+            {
+                reservation.UserCardID = User.Identity.GetUserId();
+                return View("UserCreate", reservation);
+            }
+
+            ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", reservation.UserCardID);
+            return View(reservation);
+        }
+
         // GET: Reservations/Create
         public ActionResult Create()
         {
@@ -88,7 +147,7 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,StartTime,TotalPrice,ChargingStationID,UserCardID,PaymentMethodID,EndTime")] Reservation reservation)
         {
-            reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).FirstOrDefault();
+            reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).SingleOrDefault();
 
             if (ModelState.IsValid)
             {

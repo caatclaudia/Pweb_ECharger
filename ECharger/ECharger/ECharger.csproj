@@ -670,6 +670,8 @@
     <Content Include="Views\Reservations\UserCreate.cshtml" />
     <Content Include="Views\Reservations\CompanyIndex.cshtml" />
     <Content Include="Views\Reservations\CompanyDetails.cshtml" />
+    <Content Include="Views\Reservations\MapUserCreate.cshtml" />
+    <Content Include="Views\Reservations\MapAdminCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
