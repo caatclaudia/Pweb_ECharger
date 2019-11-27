@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ECharger;
 using ECharger.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ECharger.Controllers
 {
@@ -18,6 +19,13 @@ namespace ECharger.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
+            if (User.IsInRole(RoleName.User))
+            {
+                var userId = User.Identity.GetUserId();
+                var userReservations = db.Reservations.Include(r => r.ChargingStation).Include(r => r.PaymentMethod).Where(u => u.UserCardID==userId);
+                return View("UserIndex", userReservations.ToList());
+            }
+
             var reservations = db.Reservations.Include(r => r.ChargingStation).Include(r => r.PaymentMethod).Include(r => r.UserCard);
             return View(reservations.ToList());
         }
@@ -41,6 +49,18 @@ namespace ECharger.Controllers
         public ActionResult Create()
         {
             ViewBag.ChargingStationID = new SelectList(db.ChargingStations, "ID", "Name");
+
+            if (User.IsInRole(RoleName.User))
+            {
+                var userID = User.Identity.GetUserId();
+                var userPaymentMethods = db.PaymentMethods.Where(m => m.UserCardID==userID);
+                ViewBag.PaymentMethodID = new SelectList(userPaymentMethods, "ID", "Name");
+
+                var reservation = new Reservation { UserCardID = userID };
+
+                return View("UserCreate", reservation);
+            }
+
             ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name");
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email");
             return View();
@@ -65,6 +85,13 @@ namespace ECharger.Controllers
 
             ViewBag.ChargingStationID = new SelectList(db.ChargingStations, "ID", "Name", reservation.ChargingStationID);
             ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name", reservation.PaymentMethodID);
+
+            if (User.IsInRole(RoleName.User))
+            {
+                reservation.UserCardID = User.Identity.GetUserId();
+                return View("UserCreate", reservation);
+            }
+
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", reservation.UserCardID);
             return View(reservation);
         }
@@ -81,9 +108,18 @@ namespace ECharger.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.ChargingStationID = new SelectList(db.ChargingStations, "ID", "Name", reservation.ChargingStationID);
             ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name", reservation.PaymentMethodID);
+
+            if (User.IsInRole(RoleName.User))
+            {
+                reservation.UserCardID = User.Identity.GetUserId();
+                return View("UserEdit", reservation);
+            }
+
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", reservation.UserCardID);
+            
             return View(reservation);
         }
 
@@ -92,8 +128,13 @@ namespace ECharger.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,StartTime,TotalPrice,ChargingStationID,UserCardID,PaymentMethodID,EndTime")] Reservation reservation)
+        public ActionResult Edit([Bind(Include = "ID,StartTime,TotalPrice,UserCardID,ChargingStationID,PaymentMethodID,EndTime")] Reservation reservation)
         {
+            if (User.IsInRole(RoleName.User))
+            {
+                reservation.UserCardID = User.Identity.GetUserId();
+            }
+
             reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).FirstOrDefault();
 
             if (ModelState.IsValid)
@@ -103,8 +144,16 @@ namespace ECharger.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.ChargingStationID = new SelectList(db.ChargingStations, "ID", "Name", reservation.ChargingStationID);
             ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name", reservation.PaymentMethodID);
+
+            if (User.IsInRole(RoleName.User))
+            {
+                reservation.UserCardID = User.Identity.GetUserId();
+                return View("UserEdit", reservation);
+            }
+
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", reservation.UserCardID);
             return View(reservation);
         }
@@ -121,6 +170,11 @@ namespace ECharger.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole(RoleName.User))
+            {
+               return View("UserDelete", reservation);
+            }
+
             return View(reservation);
         }
 

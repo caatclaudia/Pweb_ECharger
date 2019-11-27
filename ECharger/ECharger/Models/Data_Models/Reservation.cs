@@ -26,7 +26,7 @@ namespace ECharger
         public DateTime EndTime { get; set; }
 
         [Display(Name = "Total Price")]
-        [Range(0, 1000)]
+      //  [Range(0, double.MaxValue, ErrorMessage ="Value Total Price needs to be bigger than 0")]
         public double TotalPrice { get; set; }
 
         [Required]

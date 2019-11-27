@@ -1,0 +1,68 @@
+﻿@model ECharger.Reservation
+
+@{
+    ViewBag.Title = "UserDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChargingStation.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChargingStation.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentMethod.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentMethod.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserCard.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserCard.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
