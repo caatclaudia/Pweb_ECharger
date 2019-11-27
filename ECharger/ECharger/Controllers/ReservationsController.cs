@@ -26,6 +26,16 @@ namespace ECharger.Controllers
                 return View("UserIndex", userReservations.ToList());
             }
 
+            if (User.IsInRole(RoleName.Company))
+            {
+                var companyId = User.Identity.GetUserId();
+                var companyReservations = db.Reservations
+                    .Include(r => r.ChargingStation)
+                    .Include(r => r.UserCard)
+                    .Where(r => r.ChargingStation.CompanyID == companyId);
+                return View("CompanyIndex", companyReservations.ToList());
+            }
+
             var reservations = db.Reservations.Include(r => r.ChargingStation).Include(r => r.PaymentMethod).Include(r => r.UserCard);
             return View(reservations.ToList());
         }
