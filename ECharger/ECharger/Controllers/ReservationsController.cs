@@ -61,6 +61,7 @@ namespace ECharger.Controllers
         }
 
         // GET: Reservations/MapCreate/ChargingStationID
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult MapCreate(int? id)
         {
             if (id == null)
@@ -120,6 +121,7 @@ namespace ECharger.Controllers
         }
 
         // GET: Reservations/Create
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Create()
         {
             ViewBag.ChargingStationID = new SelectList(db.ChargingStations, "ID", "Name");
@@ -171,6 +173,7 @@ namespace ECharger.Controllers
         }
 
         // GET: Reservations/Edit/5
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -233,6 +236,7 @@ namespace ECharger.Controllers
         }
 
         // GET: Reservations/Delete/5
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Delete(int? id)
         {
             if (id == null)

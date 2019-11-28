@@ -18,6 +18,7 @@ namespace ECharger.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ChargingStations
+        [Authorize(Roles = RoleName.AdminOrCompany)]
         public ActionResult Index()
         {
             if (User.IsInRole(RoleName.Company))
@@ -48,12 +49,14 @@ namespace ECharger.Controllers
         }
 
         // GET: ChargingStations/Map
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Map()
         {
             return View();
         }
 
         // GET: ChargingStations/Details/5
+        [Authorize(Roles = RoleName.AdminOrCompany)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -81,6 +84,7 @@ namespace ECharger.Controllers
         }
 
         // GET: ChargingStations/Create
+        [Authorize(Roles = RoleName.AdminOrCompany)]
         public ActionResult Create()
         {
             setupCompanyIdViewBag();
@@ -111,6 +115,7 @@ namespace ECharger.Controllers
         }
 
         // GET: ChargingStations/Edit/5
+        [Authorize(Roles = RoleName.AdminOrCompany)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -144,6 +149,7 @@ namespace ECharger.Controllers
         }
 
         // GET: ChargingStations/Delete/5
+        [Authorize(Roles = RoleName.AdminOrCompany)]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -17,6 +17,7 @@ namespace ECharger.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: PaymentMethods
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Index()
         {
             if (User.IsInRole(RoleName.User))
@@ -30,6 +31,7 @@ namespace ECharger.Controllers
         }
 
         // GET: PaymentMethods/Details/5
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -45,6 +47,7 @@ namespace ECharger.Controllers
         }
 
         // GET: PaymentMethods/Create
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Create()
         {
             if (User.IsInRole(RoleName.User))
@@ -87,6 +90,7 @@ namespace ECharger.Controllers
         }
 
         // GET: PaymentMethods/Edit/5
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -132,6 +136,7 @@ namespace ECharger.Controllers
         }
 
         // GET: PaymentMethods/Delete/5
+        [Authorize(Roles = RoleName.AdminOrUser)]
         public ActionResult Delete(int? id)
         {
 

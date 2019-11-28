@@ -10,5 +10,8 @@ namespace ECharger.Models
         public const string Admin = "admin";
         public const string Company = "company";
         public const string User = "user";
+
+        public const string AdminOrUser = Admin + "," + User;
+        public const string AdminOrCompany = Admin + "," + Company;
     }
 }
