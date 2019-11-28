@@ -79,14 +79,14 @@ namespace ECharger.Controllers
                 var userPaymentMethods = db.PaymentMethods.Where(m => m.UserCardID == userID);
                 ViewBag.PaymentMethodID = new SelectList(userPaymentMethods, "ID", "Name");
 
-                var userReservation = new Reservation { UserCardID = userID, ChargingStationID = id };
+                var userReservation = new Reservation { UserCardID = userID, ChargingStationID = (int)id };
 
                 return View("MapUserCreate", userReservation);
             }
 
             ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name");
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email");
-            var reservation = new Reservation { ChargingStationID = id };
+            var reservation = new Reservation { ChargingStationID = (int)id };
             return View("MapAdminCreate", reservation);
         }
 

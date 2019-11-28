@@ -128,9 +128,11 @@ function createCharginStationMarker(chargingStation, timeout) {
         });
 
         google.maps.event.addListener(marker, 'click', function () {
-            var content = '<p><b>Street Name: </b>' + chargingStation.streetName + '</p>';
+            var content = '<p><b>Station: </b>' + chargingStation.name + '</p>';
+            content += '<p><b>Street: </b>' + chargingStation.streetName + '</p>';
             content += '<p><b>City: </b>' + chargingStation.city + '</p>';
             content += '<p><b>Operator: </b>' + chargingStation.operator + '</p>';
+            content += '<p><b>Price per minute: </b>' + roundToTwo(chargingStation.pricePerMinute) + '</p>';
             content += '<a onclick="reserveChargingStation(' + chargingStation.id + ')" class="btn btn-primary js-reservation" > Reserve Now</a> ';
             infowindow.setContent(content);
 
@@ -150,4 +152,8 @@ function clearChargingStationsMarkers() {
         chargingStationsMarkers[i].setMap(null);
     }
     chargingStationsMarkers = [];
+}
+
+function roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
 }

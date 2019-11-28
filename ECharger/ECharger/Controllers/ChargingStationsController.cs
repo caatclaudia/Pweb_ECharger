@@ -27,6 +27,12 @@ namespace ECharger.Controllers
             return View(db.ChargingStations.ToList());
         }
 
+        // GET: ChargingStations/Map
+        public ActionResult Map()
+        {
+            return View();
+        }
+
         // GET: ChargingStations/Details/5
         public ActionResult Details(int? id)
         {
