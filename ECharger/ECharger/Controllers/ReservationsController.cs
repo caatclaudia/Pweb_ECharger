@@ -104,7 +104,7 @@ namespace ECharger.Controllers
                 reservation.updateTotalPrice();
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + reservation.ID);
             }
             
             ViewBag.PaymentMethodID = new SelectList(db.PaymentMethods, "ID", "Name", reservation.PaymentMethodID);
@@ -154,7 +154,7 @@ namespace ECharger.Controllers
                 reservation.updateTotalPrice();
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + reservation.ID);
             }
 
             ViewBag.ChargingStationID = new SelectList(db.ChargingStations, "ID", "Name", reservation.ChargingStationID);
