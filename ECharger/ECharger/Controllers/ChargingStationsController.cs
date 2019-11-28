@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ECharger;
 using ECharger.Models;
+using ECharger.ViewModels;
 using Microsoft.AspNet.Identity;
 
 namespace ECharger.Controllers
@@ -24,7 +25,26 @@ namespace ECharger.Controllers
                 var companyID = User.Identity.GetUserId();
                 return View(db.ChargingStations.Where(c => c.CompanyID == companyID));
             }
-            return View(db.ChargingStations.ToList());
+
+            List<ChargingStationViewModel> chargingStationsViewModel = new List<ChargingStationViewModel>();
+            IEnumerable<ChargingStation> chargingStations = db.ChargingStations.ToList();
+            foreach (var chargingStation in chargingStations)
+            {
+                chargingStationsViewModel.Add(new ChargingStationViewModel
+                {
+                    ID = chargingStation.ID,
+                    Name = chargingStation.Name,
+                    StreetName = chargingStation.StreetName,
+                    City = chargingStation.City,
+                    Operator = chargingStation.Operator,
+                    PricePerMinute = chargingStation.PricePerMinute,
+                    Latitude = chargingStation.Latitude,
+                    Longitude = chargingStation.Longitude,
+                    CompanyEmail = db.Users.Find(chargingStation.CompanyID).Email
+                });
+            }
+
+            return View(chargingStationsViewModel);
         }
 
         // GET: ChargingStations/Map

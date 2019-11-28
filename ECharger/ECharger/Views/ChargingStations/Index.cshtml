@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ECharger.ChargingStation>
+﻿@model IEnumerable<ECharger.ViewModels.ChargingStationViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -31,7 +31,7 @@
             @Html.DisplayNameFor(model => model.Longitude)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompanyID)
+            @Html.DisplayNameFor(model => model.CompanyEmail)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PricePerMinute)
@@ -60,7 +60,7 @@
             @Html.DisplayFor(modelItem => item.Longitude)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CompanyID)
+            @Html.DisplayFor(modelItem => item.CompanyEmail)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PricePerMinute)
