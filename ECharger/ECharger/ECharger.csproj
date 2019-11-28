@@ -205,6 +205,9 @@
     <Compile Include="Controllers\PaymentMethodsController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Dtos\ChargingStationDto.cs" />
+    <Compile Include="Dtos\JSON\AddressInfo.cs" />
+    <Compile Include="Dtos\JSON\ChargingStationInfo.cs" />
+    <Compile Include="Dtos\JSON\OperatorInfo.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -25,7 +25,7 @@ namespace ECharger
         [StringLength(255, ErrorMessage = "City needs to be under 255 characters long!")]
         public string City { get; set; }
         public string Operator { get; set; }
-        public ICollection<Reservation> reservations { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
 
         [Required]
         [Display(Name = "Price per minute")]
@@ -43,11 +43,14 @@ namespace ECharger
         [Required]
         public string CompanyID { get; set; }
 
-       
+        public ChargingStation()
+        {
+            Reservations = new List<Reservation>();
+        }
 
         public bool existReservation(Reservation nova)
         {
-            foreach (Reservation aux in reservations)
+            foreach (Reservation aux in Reservations)
             {
                 if (aux.ID == nova.ID)
                     return true;
@@ -59,7 +62,7 @@ namespace ECharger
         public List<Reservation> searchReservationDate(DateTime date)
         {
             List<Reservation> reservationsD = new List<Reservation>();
-            foreach (Reservation aux in reservations)
+            foreach (Reservation aux in Reservations)
             {
                 if (aux.StartTime == date)
                     reservationsD.Add(aux);
@@ -71,13 +74,13 @@ namespace ECharger
         {
             if (existReservation(ob))
                 return;
-            reservations.Add(ob);
+            Reservations.Add(ob);
         }
 
         public void removeReservation(Reservation ob)
         {
             if (existReservation(ob))
-                reservations.Remove(ob);
+                Reservations.Remove(ob);
         }
     }
 }
