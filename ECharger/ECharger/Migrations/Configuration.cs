@@ -25,7 +25,7 @@ namespace ECharger.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            string URL = "https://api.openchargemap.io/v3/poi/?output=json&countrycode=PT&maxresults=100&latitude=40.2056400&longitude=-8.4195";
+            string URL = "https://api.openchargemap.io/v3/poi/?output=json&countrycode=PT&maxresults=200&latitude=40.2056400&longitude=-8.4195";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
             request.ContentType = "application/json; charset=utf-8";
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
@@ -42,6 +42,11 @@ namespace ECharger.Migrations
                     string operatorInfo;
                     foreach (var chargingStationInfo in chargingStationsInfo)
                     {
+                        if (chargingStationInfo.AddressInfo.Town == null)
+                        {
+                            continue;
+                        }
+
                         if (chargingStationInfo.OperatorInfo == null)
                         {
                             operatorInfo = "Mobi E";
