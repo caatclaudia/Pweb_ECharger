@@ -24,7 +24,9 @@ namespace ECharger
         [Required]
         [StringLength(255, ErrorMessage = "City needs to be under 255 characters long!")]
         public string City { get; set; }
+
         public string Operator { get; set; }
+        
         public ICollection<Reservation> Reservations { get; set; }
 
         [Required]
