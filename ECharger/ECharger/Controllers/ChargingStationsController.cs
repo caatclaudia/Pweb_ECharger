@@ -24,7 +24,7 @@ namespace ECharger.Controllers
             if (User.IsInRole(RoleName.Company))
             {
                 var companyID = User.Identity.GetUserId();
-                return View(db.ChargingStations.Where(c => c.CompanyID == companyID));
+                return View("CompanyIndex", db.ChargingStations.Where(c => c.CompanyID == companyID));
             }
 
             List<ChargingStationViewModel> chargingStationsViewModel = new List<ChargingStationViewModel>();
