@@ -102,6 +102,11 @@ namespace ECharger.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole(RoleName.User))
+            {
+                paymentMethod.UserCardID = User.Identity.GetUserId();
+                return View("UserEdit", paymentMethod);
+            }
             ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", paymentMethod.UserCardID);
             return View(paymentMethod);
         }
@@ -166,6 +171,29 @@ namespace ECharger.Controllers
             db.PaymentMethods.Remove(paymentMethod);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        {
+            if (User.IsInRole(RoleName.User))
+            {
+                paymentMethod.UserCardID = User.Identity.GetUserId();
+            }
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(paymentMethod).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            if (User.IsInRole(RoleName.User))
+            {
+                paymentMethod.UserCardID = User.Identity.GetUserId();
+                return View(paymentMethod);
+            }
+
+            ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", paymentMethod.UserCardID);
+            return View(paymentMethod);
         }
 
         protected override void Dispose(bool disposing)
