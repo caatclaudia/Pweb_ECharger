@@ -68,6 +68,10 @@ namespace ECharger.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole(RoleName.Company))
+            {
+                return View("CompanyDetails", chargingStation);
+            }
             return View(chargingStation);
         }
 
@@ -88,6 +92,10 @@ namespace ECharger.Controllers
         public ActionResult Create()
         {
             setupCompanyIdViewBag();
+            if (User.IsInRole(RoleName.Company))
+            {
+                return View("CompanyCreate");
+            }
             return View();
         }
 
@@ -110,6 +118,11 @@ namespace ECharger.Controllers
                 return RedirectToAction("Index");
             }
 
+            if (User.IsInRole(RoleName.Company))
+            {
+                return View("CompanyCreate", chargingStation);
+            }
+
             setupCompanyIdViewBag();
             return View(chargingStation);
         }
@@ -126,6 +139,11 @@ namespace ECharger.Controllers
             if (chargingStation == null)
             {
                 return HttpNotFound();
+            }
+            if (User.IsInRole(RoleName.Company))
+            {
+                chargingStation.CompanyID = User.Identity.GetUserId();
+                return View("CompanyEdit", chargingStation);
             }
             setupCompanyIdViewBag();
             return View(chargingStation);
@@ -144,6 +162,11 @@ namespace ECharger.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            if (User.IsInRole(RoleName.Company))
+            {
+                chargingStation.CompanyID = User.Identity.GetUserId();
+                return View("CompanyEdit", chargingStation);
+            }
             setupCompanyIdViewBag();
             return View(chargingStation);
         }
@@ -160,6 +183,10 @@ namespace ECharger.Controllers
             if (chargingStation == null)
             {
                 return HttpNotFound();
+            }
+            if (User.IsInRole(RoleName.Company))
+            {
+                return View("CompanyDelete", chargingStation);
             }
             return View(chargingStation);
         }

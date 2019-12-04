@@ -675,6 +675,10 @@
     <Content Include="Views\Reservations\MapAdminCreate.cshtml" />
     <Content Include="Views\ChargingStations\Map.cshtml" />
     <Content Include="Views\ChargingStations\CompanyIndex.cshtml" />
+    <Content Include="Views\ChargingStations\CompanyEdit.cshtml" />
+    <Content Include="Views\ChargingStations\CompanyCreate.cshtml" />
+    <Content Include="Views\ChargingStations\CompanyDelete.cshtml" />
+    <Content Include="Views\ChargingStations\CompanyDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
