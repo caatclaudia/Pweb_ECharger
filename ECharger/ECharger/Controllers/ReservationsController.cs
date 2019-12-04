@@ -56,6 +56,10 @@ namespace ECharger.Controllers
             {
                 return View("CompanyDetails", reservation);
             }
+            if (User.IsInRole(RoleName.User))
+            {
+                return View("UserDetails", reservation);
+            }
 
             return View(reservation);
         }
