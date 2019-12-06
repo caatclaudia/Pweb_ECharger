@@ -5,46 +5,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>PaymentMethod</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.PaymentMethodID)
-
-<dl class="dl-horizontal">
-
-    <dt>
-        @Html.DisplayNameFor(model => model.PaymentMethod.Name)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.PaymentMethod.Name)
-    </dd>
-
-
-    <dd>
-        @Html.LabelFor(model => model.ChargingValue, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ChargingValue, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ChargingValue, "", new { @class = "text-danger" })
-        </div>
-
-    </dd>
-
-</dl>
-            
-    <div class="col-md-offset-2 col-md-10">
-        <input type = "submit" value="Save" class="btn btn-default" />
+<div class="content-header">
+    <div class="container-fluid">
+        <h2>Add</h2>
     </div>
 </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="content">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>PaymentMethod</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.PaymentMethodID)
+
+                <dl class="dl-horizontal">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PaymentMethod.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PaymentMethod.Name)
+                    </dd>
+
+
+                    <dd>
+                        @Html.LabelFor(model => model.ChargingValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ChargingValue, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ChargingValue, "", new { @class = "text-danger" })
+                        </div>
+
+                    </dd>
+
+                </dl>
+
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
 </div>

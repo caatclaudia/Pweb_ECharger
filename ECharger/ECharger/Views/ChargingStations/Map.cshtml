@@ -4,16 +4,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Map</h2>
-
-<div class="row">
-    <input id="pac-input" class="controls to-animate" type="text" placeholder="Search Box">
-    <div id="map" class="to-animate"></div>
+<div class="content-header">
+    <div class="container-fluid">
+        <h2>Map</h2>
+    </div>
 </div>
 
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <input id="pac-input" class="controls to-animate" type="text" placeholder="Search Box">
+            <div id="map" class="to-animate"></div>
+        </div>
 
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-@Scripts.Render("~/bundles/maps")
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-Ts5Q9gH747cMiwu3P3kljgsI-1ZQJT0&libraries=places&callback=initAutocomplete">
-</script>
+
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        @Scripts.Render("~/bundles/maps")
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-Ts5Q9gH747cMiwu3P3kljgsI-1ZQJT0&libraries=places&callback=initAutocomplete">
+        </script>
+    </div>
+</div>
