@@ -26,7 +26,6 @@ namespace ECharger
 
         public UserCard UserCard { get; set; }
 
-
         public string toString()
         {
             return $"Payment Method: {Name} with the value {Value:F2} €\n";

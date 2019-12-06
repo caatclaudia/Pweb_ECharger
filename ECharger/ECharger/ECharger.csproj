@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Data_Models\ChargePaymentMethod.cs" />
     <Compile Include="Models\Data_Models\ReservationDataCheck.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -675,6 +676,7 @@
     <Content Include="Views\Reservations\MapAdminCreate.cshtml" />
     <Content Include="Views\ChargingStations\Map.cshtml" />
     <Content Include="Views\ChargingStations\CompanyIndex.cshtml" />
+    <Content Include="Views\PaymentMethods\Charge.cshtml" />
     <Content Include="Views\ChargingStations\CompanyEdit.cshtml" />
     <Content Include="Views\ChargingStations\CompanyCreate.cshtml" />
     <Content Include="Views\ChargingStations\CompanyDelete.cshtml" />

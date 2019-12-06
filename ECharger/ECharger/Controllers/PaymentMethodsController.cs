@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ECharger;
 using ECharger.Models;
+using ECharger.Models.Data_Models;
 using Microsoft.AspNet.Identity;
 
 namespace ECharger.Controllers
@@ -173,27 +174,46 @@ namespace ECharger.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: PaymentMethods/Edit/5
+        [Authorize(Roles = RoleName.AdminOrUser)]
+        public ActionResult Charge(int? id)
         {
-            if (User.IsInRole(RoleName.User))
+
+            if (id == null)
             {
-                paymentMethod.UserCardID = User.Identity.GetUserId();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            PaymentMethod paymentMethod = db.PaymentMethods.Find(id);
+            if (paymentMethod == null)
+            {
+                return HttpNotFound();
+            }
+
+            ChargePaymentMethod chargePaymentMethod = new ChargePaymentMethod() { PaymentMethodID = paymentMethod.ID, PaymentMethod=paymentMethod };
+
+            return View(chargePaymentMethod);
+        }
+
+        // POST: PaymentMethods/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Charge([Bind(Include = "PaymentMethodID,ChargingValue")] ChargePaymentMethod chargePaymentMethod)
+        {
+            PaymentMethod paymentMethod = db.PaymentMethods.Find(chargePaymentMethod.PaymentMethodID);
 
             if (ModelState.IsValid)
             {
+                paymentMethod.Value += chargePaymentMethod.ChargingValue;
                 db.Entry(paymentMethod).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            if (User.IsInRole(RoleName.User))
-            {
-                paymentMethod.UserCardID = User.Identity.GetUserId();
-                return View(paymentMethod);
-            }
+            chargePaymentMethod.PaymentMethod = paymentMethod;
 
-            ViewBag.UserCardID = new SelectList(db.UserCards, "ID", "Email", paymentMethod.UserCardID);
-            return View(paymentMethod);
+            return View(chargePaymentMethod);
         }
 
         protected override void Dispose(bool disposing)
