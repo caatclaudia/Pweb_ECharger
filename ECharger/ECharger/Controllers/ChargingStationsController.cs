@@ -106,6 +106,9 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,StreetName,City,Operator,Latitude,Longitude,CompanyID,PricePerMinute")] ChargingStation chargingStation)
         {
+            if (NameChargingStationRepeat(chargingStation))
+                ModelState.AddModelError("Name", "This name already exists!");
+
             if (User.IsInRole(RoleName.Company))
             {
                 chargingStation.CompanyID = User.Identity.GetUserId();
@@ -209,6 +212,14 @@ namespace ECharger.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [NonAction]
+        private bool NameChargingStationRepeat(ChargingStation chargingStation)
+        {
+            if (db.ChargingStations.Where(n => n.Name == chargingStation.Name && n.ID != chargingStation.ID).FirstOrDefault() == null)
+                return false;
+            return true;
         }
     }
 }
