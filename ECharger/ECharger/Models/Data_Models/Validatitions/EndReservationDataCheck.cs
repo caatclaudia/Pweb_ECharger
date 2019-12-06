@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ECharger.Models.Data_Models
 {
-    public class ReservationDataCheck : ValidationAttribute
+    public class EndReservationDataCheck : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

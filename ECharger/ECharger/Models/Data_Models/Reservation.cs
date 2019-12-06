@@ -1,4 +1,5 @@
 ﻿using ECharger.Models.Data_Models;
+using ECharger.Models.Data_Models.Validatitions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,19 +17,21 @@ namespace ECharger
         [Display(Name = "Start Time")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [StartReservationDataCheck]
         public DateTime StartTime { get; set; }
 
         [Required]
         [Display(Name = "End Time")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy HH:mm}", ApplyFormatInEditMode = true)]
-        [ReservationDataCheck]
+        [EndReservationDataCheck]
         public DateTime EndTime { get; set; }
 
         [Display(Name = "Total Price")]
         public double TotalPrice { get; set; }
 
         [Required]
+        [ChargingStationUsage]
         public int ChargingStationID { get; set; }
         
         public ChargingStation ChargingStation { get; set; }
