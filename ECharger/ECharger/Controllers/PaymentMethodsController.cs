@@ -73,6 +73,9 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,UserCardID,Value")] PaymentMethod paymentMethod)
         {
+            if (NamePaymentMethodRepeat(paymentMethod))
+                ModelState.AddModelError("Name", "This name already exists!");
+
             if (ModelState.IsValid)
             {
                 db.PaymentMethods.Add(paymentMethod);
@@ -223,6 +226,14 @@ namespace ECharger.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [NonAction]
+        private bool NamePaymentMethodRepeat(PaymentMethod paymentMethod)
+        {
+            if (db.PaymentMethods.Where(n => n.Name == paymentMethod.Name && n.ID != paymentMethod.ID).FirstOrDefault() == null)
+                return false;
+            return true;
         }
     }
 }
