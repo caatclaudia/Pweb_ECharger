@@ -154,10 +154,17 @@ namespace ECharger.Controllers
         public ActionResult Create([Bind(Include = "ID,StartTime,TotalPrice,ChargingStationID,UserCardID,PaymentMethodID,EndTime")] Reservation reservation)
         {
             reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).SingleOrDefault();
+            reservation.updateTotalPrice();
 
+            var paymentMethod = db.PaymentMethods.Where(i => i.ID == reservation.PaymentMethodID).SingleOrDefault();
+
+            if (ReservationPaymentMethodIsInvalid(paymentMethod, reservation.TotalPrice))
+                ModelState.AddModelError("PaymentMethodID", "Selected Payment Method is invalid!");
+            
             if (ModelState.IsValid)
-            {
-                reservation.updateTotalPrice();
+            { 
+                paymentMethod.Value -= reservation.TotalPrice;
+                db.Entry(paymentMethod).State = EntityState.Modified;
                 db.Reservations.Add(reservation);
                 db.SaveChanges();
                 return RedirectToAction("Details/" + reservation.ID);
@@ -217,10 +224,22 @@ namespace ECharger.Controllers
             }
 
             reservation.ChargingStation = db.ChargingStations.Where(i => i.ID == reservation.ChargingStationID).FirstOrDefault();
+            var oldReservationPrice = reservation.TotalPrice;
+            reservation.updateTotalPrice();
+            reservation.TotalPrice -= oldReservationPrice;
+            var priceToPay = reservation.TotalPrice;
+
+            var paymentMethod = db.PaymentMethods.Where(i => i.ID == reservation.PaymentMethodID).SingleOrDefault();
+
+            if (ReservationPaymentMethodIsInvalid(paymentMethod, reservation.TotalPrice))
+                ModelState.AddModelError("PaymentMethodID", "Selected Payment Method is invalid!");
+
+            reservation.updateTotalPrice();
 
             if (ModelState.IsValid)
             {
-                reservation.updateTotalPrice();
+                paymentMethod.Value -= priceToPay;
+                db.Entry(paymentMethod).State = EntityState.Modified;
                 db.Entry(reservation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -277,6 +296,22 @@ namespace ECharger.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [NonAction]
+        private bool ReservationPaymentMethodIsInvalid(PaymentMethod paymentMethod, double reservationCost)
+        {
+            if (paymentMethod == null)
+            {
+                return true;
+            }
+
+            if (paymentMethod.Value - reservationCost < 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

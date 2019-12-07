@@ -55,6 +55,9 @@ namespace ECharger
                 int totalMinutes = (int)timeSpan.TotalMinutes;
 
                 TotalPrice = ChargingStation.PricePerMinute * totalMinutes;
+            } else
+            {
+                TotalPrice = 0;
             }
         }
 

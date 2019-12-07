@@ -24,6 +24,7 @@ namespace ECharger.Models.Data_Models.Validatitions
 
             var OverlapedReservationsWithSelectedChargingStation = db.Reservations
                 .Where(r => r.ChargingStationID == chargingStation.ID)
+                .Where(r => r.ID != reservation.ID)
                 .Where(r => r.StartTime < reservation.EndTime && r.EndTime > reservation.StartTime)
                 .ToList();
 
