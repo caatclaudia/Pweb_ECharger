@@ -22,18 +22,13 @@ namespace ECharger.Models.Data_Models.Validatitions
                 return new ValidationResult("Charging Station is required!");
             }
 
-            var reservationsWithSelectedChargingStation = db.Reservations.Where(r => r.ChargingStationID == chargingStation.ID);
-
-            var chargingStationsReservationsAfter = reservationsWithSelectedChargingStation
-                .Where(r => r.EndTime <= reservation.StartTime)
-                .ToList();
-
-            var chargingStationsReservationsBefore = reservationsWithSelectedChargingStation
-                .Where(r => r.StartTime <= reservation.EndTime)
+            var OverlapedReservationsWithSelectedChargingStation = db.Reservations
+                .Where(r => r.ChargingStationID == chargingStation.ID)
+                .Where(r => r.StartTime < reservation.EndTime && r.EndTime > reservation.StartTime)
                 .ToList();
 
 
-            if (chargingStationsReservationsBefore.Count == 0 && chargingStationsReservationsAfter.Count == 0)
+            if (OverlapedReservationsWithSelectedChargingStation.Count == 0)
             {
                 return ValidationResult.Success;
             } 
