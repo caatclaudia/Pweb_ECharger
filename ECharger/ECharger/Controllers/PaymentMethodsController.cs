@@ -122,6 +122,9 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,UserCardID,Value")] PaymentMethod paymentMethod)
         {
+            if (NamePaymentMethodRepeat(paymentMethod))
+                ModelState.AddModelError("Name", "This name already exists!");
+
             if (User.IsInRole(RoleName.User))
             {
                 paymentMethod.UserCardID = User.Identity.GetUserId();

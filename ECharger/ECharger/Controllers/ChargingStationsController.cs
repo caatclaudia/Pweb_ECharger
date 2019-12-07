@@ -159,6 +159,9 @@ namespace ECharger.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,StreetName,City,Operator,Latitude,Longitude,CompanyID,PricePerMinute")] ChargingStation chargingStation)
         {
+            if (NameChargingStationRepeat(chargingStation))
+                ModelState.AddModelError("Name", "This name already exists!");
+
             if (ModelState.IsValid)
             {
                 db.Entry(chargingStation).State = EntityState.Modified;
