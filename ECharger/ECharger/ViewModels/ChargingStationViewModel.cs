@@ -29,6 +29,7 @@ namespace ECharger.ViewModels
         [Required]
         [Display(Name = "Price per minute")]
         [Range(0, 1)]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double PricePerMinute { get; set; }
 
         [Required]

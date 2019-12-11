@@ -28,6 +28,7 @@ namespace ECharger
         public DateTime EndTime { get; set; }
 
         [Display(Name = "Total Price")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double TotalPrice { get; set; }
 
         [Required]
