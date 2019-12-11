@@ -1,11 +1,10 @@
 ﻿@model ECharger.Models.IndexViewModel
-@{
-    ViewBag.Title = "Manage Account";
-}
 
 <div class="content-header">
     <div class="container-fluid">
-        <h1 class="m-0 text-dark">@ViewBag.Title</h1>
+        <div class="jumbotron">
+            <h1>Welcome to your ECharger Account @User.Identity.Name</h1>
+        </div>
     </div>
 </div>
 
