@@ -17,7 +17,7 @@ namespace ECharger
         public string Name { get; set; }
 
         [Required]
-        [Range(0, 100)]
+        [Range(0, double.MaxValue, ErrorMessage = "Please enter a value bigger than 0")]
         public double Value { get; set; }
 
         [Required]
