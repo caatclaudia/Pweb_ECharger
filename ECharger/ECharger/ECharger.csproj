@@ -668,10 +668,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ValidacaoChargingStation\" />
-    <Folder Include="Views\ValidacaoPaymentMethod\" />
-    <Folder Include="Views\ValidationChargingStation\" />
-    <Folder Include="Views\ValidationPaymentMethod\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
