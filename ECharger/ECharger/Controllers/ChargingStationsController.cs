@@ -21,16 +21,21 @@ namespace ECharger.Controllers
         [Authorize(Roles = RoleName.AdminOrCompany)]
         public ActionResult Index()
         {
+            IEnumerable<ChargingStation> chargingStations;
             if (User.IsInRole(RoleName.Company))
             {
                 var companyID = User.Identity.GetUserId();
-                return View("CompanyIndex", db.ChargingStations.Where(c => c.CompanyID == companyID));
+                chargingStations = db.ChargingStations.Where(c => c.CompanyID == companyID).ToList();
+            }
+            else
+            {
+                chargingStations = db.ChargingStations.ToList();
             }
 
             List<ChargingStationViewModel> chargingStationsViewModel = new List<ChargingStationViewModel>();
-            IEnumerable<ChargingStation> chargingStations = db.ChargingStations.ToList();
             foreach (var chargingStation in chargingStations)
             {
+                int numberReservations = db.Reservations.Where(r => r.ChargingStationID == chargingStation.ID).Count();
                 chargingStationsViewModel.Add(new ChargingStationViewModel
                 {
                     ID = chargingStation.ID,
@@ -41,8 +46,14 @@ namespace ECharger.Controllers
                     PricePerMinute = chargingStation.PricePerMinute,
                     Latitude = chargingStation.Latitude,
                     Longitude = chargingStation.Longitude,
-                    CompanyEmail = db.Users.Find(chargingStation.CompanyID).Email
+                    CompanyEmail = db.Users.Find(chargingStation.CompanyID).Email,
+                    NumberReservations = numberReservations
                 });
+            }
+
+            if (User.IsInRole(RoleName.Company))
+            {
+                return View("CompanyIndex", chargingStationsViewModel);
             }
 
             return View(chargingStationsViewModel);

@@ -44,5 +44,9 @@ namespace ECharger.ViewModels
         [EmailAddress]
         [Display(Name = "Company Email")]
         public string CompanyEmail { get; set; }
+
+        [Range(0,int.MaxValue)]
+        [Display(Name = "Number Reservations")]
+        public int NumberReservations { get; set; }
     }
 }
