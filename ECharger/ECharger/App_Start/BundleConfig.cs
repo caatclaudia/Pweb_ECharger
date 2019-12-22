@@ -27,7 +27,8 @@ namespace ECharger
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/datatables/datatbles.bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/maps").Include(
                 "~/Scripts/maps.js"));
@@ -37,11 +38,15 @@ namespace ECharger
                       "~/Content/site.css",
                       "~/Content/css/font-awesome.css",
                       "~/admin-lte/plugins/fontawesome-free/css/all.css",
-                      "~/admin-lte/css/AdminLTE.css"));
+                      "~/admin-lte/css/AdminLTE.css",
+                      "~/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css"
+            ));
 
             bundles.Add(new ScriptBundle("~/admin-lte/js").Include(
                 "~/admin-lte/js/adminlte.js",
-                "~/admin-lte/plugins/fastclick/fastclick.js"
+                "~/admin-lte/plugins/fastclick/fastclick.js",
+                "~/admin-lte/plugins/datatables/jquery.dataTables.js",
+                "~/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"
             ));
 
             bundles.Add(new Bundle("~/crew/css").Include(
